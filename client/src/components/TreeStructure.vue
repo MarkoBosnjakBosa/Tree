@@ -1,14 +1,14 @@
 <template>
 	<ul id="treeStructure">
-		<li v-for="branch in tree" :key="branch.id" :id="'element_' + branch.id" :data-fieldid="branch.id" :orderid="branch.orderid" draggable="true" :class="'bfForm ' + branch.type + ' ' + branch.active" @dragstart="onDragStart($event)" @dragover.prevent="onDragOver($event)" @dragleave.prevent="onDragLeave($event)" @drop.prevent="onDrop($event)">
+		<li v-for="branch in tree" :key="branch.id" :id="'element_' + branch.id" :data-fieldid="branch.id" :orderid="branch.orderid" draggable="true" :class="branch.type + ' ' + branch.active" @dragstart="onDragStart($event)" @dragover.prevent="onDragOver($event)" @dragleave.prevent="onDragLeave($event)" @drop.prevent="onDrop($event)">
 			<span @click="makeActive(branch.id)"> {{ branch.type }} - {{ branch.id }}</span>
 			<ul :id="'ul_' + branch.id" :data-type="branch.type">
 				<li v-if="branch.children.length < 1" class="emptyPage"></li>
-				<li v-for="majorChild in branch.children" :key="majorChild.id" :id="'element_' + majorChild.id" :data-fieldid="majorChild.id" :orderid="majorChild.orderid" draggable="true" :class="'bfForm ' + majorChild.type + ' ' + majorChild.active" @dragstart="onDragStart($event)" @dragover.prevent="onDragOver($event)" @dragleave.prevent="onDragLeave($event)" @drop.prevent="onDrop($event)">
+				<li v-for="majorChild in branch.children" :key="majorChild.id" :id="'element_' + majorChild.id" :data-fieldid="majorChild.id" :orderid="majorChild.orderid" draggable="true" :class="majorChild.type + ' ' + majorChild.active" @dragstart="onDragStart($event)" @dragover.prevent="onDragOver($event)" @dragleave.prevent="onDragLeave($event)" @drop.prevent="onDrop($event)">
 					<span @click="makeActive(majorChild.id)">{{ majorChild.type }} - {{ majorChild.id }}</span>
 					<ul v-if="majorChild.type == 'section'" :id="'ul_' + majorChild.id" :data-type="majorChild.type">
 						<li v-if="majorChild.children.length < 1" class="emptySection"></li>
-						<li v-for="minorChild in majorChild.children" :key="minorChild.id" :id="'element_' + minorChild.id" :data-fieldid="minorChild.id" :orderid="minorChild.orderid" draggable="true" :class="'bfForm ' + minorChild.type + ' ' + minorChild.active" @dragstart="onDragStart($event)" @dragover.prevent="onDragOver($event)" @dragleave.prevent="onDragLeave($event)" @drop.prevent="onDrop($event)">
+						<li v-for="minorChild in majorChild.children" :key="minorChild.id" :id="'element_' + minorChild.id" :data-fieldid="minorChild.id" :orderid="minorChild.orderid" draggable="true" :class="minorChild.type + ' ' + minorChild.active" @dragstart="onDragStart($event)" @dragover.prevent="onDragOver($event)" @dragleave.prevent="onDragLeave($event)" @drop.prevent="onDrop($event)">
 							<span @click="makeActive(minorChild.id)">{{ minorChild.type }} - {{ minorChild.id }}</span>
 						</li>
 					</ul>
